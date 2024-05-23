@@ -14,26 +14,31 @@ const PruebasMateriales = () => {
       </View>
 
       <View style={styles.row}>
-        <View style={styles.item}>
+        <View style={[styles.item, styles.itemWithFlex]}> {/* Aplicar flex */}
           <Text style={styles.itemLabel}>Cemento</Text>
           <Text style={styles.itemValue}>16.842</Text>
         </View>
-        <View style={styles.item}>
+        <View style={[styles.item, styles.itemWithFlex]}> {/* Aplicar flex */}
           <Text style={styles.itemLabel}>Grava</Text>
           <Text style={styles.itemValue}>122.104</Text>
         </View>
       </View>
 
       <View style={styles.row}>
-        <View style={styles.item}>
-          <Text style={styles.itemLabel}>Arena</Text>
-          <Text style={styles.itemValue}>105.262</Text>
-        </View>
-        <View style={styles.item}>
+      <View style={styles.row}>
+  <View style={[styles.item, styles.itemWithFlex]}>
+    <Text style={styles.itemLabel}>Cemento</Text> 
+    <Text style={styles.itemValue}>16.842</Text>
+  </View>
+  {/* ... (otros elementos similares) ... */}
+</View>
+
+        <View style={[styles.item, styles.itemWithFlex]}> {/* Aplicar flex */}
           <Text style={styles.itemLabel}>Agua</Text>
           <Text style={styles.itemValue}>42.105</Text>
         </View>
       </View>
+
     </ScrollView>
   );
 };
@@ -68,8 +73,12 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between', // Distribuir el espacio entre los elementos
     marginBottom: 10,
+  },
+  itemWithFlex: { // Nuevo estilo para aplicar flex
+    flex: 1, // Ocupará la mitad del espacio disponible en la fila
+    marginHorizontal: 5, // Margen horizontal para separar los items
   },
   item: {
     backgroundColor: '#fff', // Fondo blanco para los items

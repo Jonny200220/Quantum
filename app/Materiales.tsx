@@ -6,13 +6,24 @@ import { ScrollView } from 'react-native'
 const Materiales = () => {
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#F3F4F6'}} >
-        <Text>
-            Pagina de materiales
-        </Text>
+        <Text style={styles.title}>Dosificación de concreto</Text>
+      <Text style={styles.subtitle}>Uso sugerido: Piso, Firmes y Banquetas</Text>
     </ScrollView>
   )
 }
 
 export default Materiales
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+    fontWeight: '700',
+    marginVertical: 25,
+    textAlign: 'center'
+},
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+})

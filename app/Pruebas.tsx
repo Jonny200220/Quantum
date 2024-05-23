@@ -2,15 +2,14 @@ import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 
-import { useLocalSearchParams, Redirect } from 'expo-router'; 
 
 const Dosificadora = () => {
     const [largo, setLargo] = useState('')
     const [ancho, setAncho] = useState('')
     const [espesor, setEspesor] = useState('')
-    const [selectedResistance, setSelectedResistance] = useState('');
     const [volumen, setVolumen] = useState(0);
     const [resistencia, setResistencia] = useState();
+    const [resistenciaMensaje, setResistenciaMensaje] = useState('');
 
     const handleCalculateVolume = () => {
         const largoValue = parseFloat(largo) || 0;
@@ -26,6 +25,35 @@ const Dosificadora = () => {
             ]);
         }
     };
+
+    const handleResistenciaChange = (value: string) => {
+        setResistencia(value);
+        let mensaje = '';
+        switch (value) {
+            case '0':
+                mensaje = "Seleccionar Resistencia";
+                break;
+            case '100':
+                mensaje = "Pisos, firmes y banquetas";
+                break;
+            case '150':
+                mensaje = "Dalas, castillos y cadenas";
+                break;
+            case '200':
+                mensaje = "Zapatas, losas y trabes";
+                break;
+            case '250':
+                mensaje = "Columnas y losas especiales";
+                break;
+            case '300':
+                mensaje = "Preesforzados";
+                break;
+            default:
+                mensaje = '';
+        }
+        setResistenciaMensaje(mensaje);
+    };
+
     return (
         <ScrollView style={styles.scrollContainer}>
             <View>
@@ -71,26 +99,37 @@ const Dosificadora = () => {
                         textAlign="center"/>
                 </View>
                 <View style={styles.resultContainer}>  
-        <View style={styles.resultRow}>
-          <Text style={styles.resultLabel}>Cantidad:</Text>
-          <Text style={styles.resultValue}>{volumen} m³</Text>
-        </View>
-        <View style={styles.resultRow}>
-          <Text style={styles.resultLabel}>Resistencia:</Text>
-          <Text style={styles.resultValue}>{resistencia}</Text>
-        </View>
-      </View>
-                <Picker style={styles.picker} selectedValue={resistencia} onValueChange={(itemValue, itemIndex) => setResistencia(itemValue)}>
-                  <Picker.Item label="100" value="100" />
-                  <Picker.Item label="150" value='150' />
-                  <Picker.Item label="200" value='200' />
-                  <Picker.Item label="250" value='250' />
-                  <Picker.Item label="300" value='300' />
+                    <View style={styles.resultRow}>
+                      <Text style={styles.resultLabel}>Cantidad:</Text>
+                      <Text style={styles.resultValue}>{volumen} m³</Text>
+                    </View>
+                    <View style={styles.resultRow}>
+                      <Text style={styles.resultLabel}>Resistencia:</Text>
+                      <Text style={styles.resultValue}>{resistencia}</Text>
+                    </View>
+                    <View style={styles.resultRow}>
+                      <Text style={styles.resultLabel}>Uso Sugerido:</Text>
+                      <Text style={styles.resultValue}>{resistenciaMensaje}</Text>
+                    </View>
+                </View>
+
+                <Picker 
+                    style={styles.picker}
+                    itemStyle={styles.pickerItem}
+                    selectedValue={resistencia} 
+                    onValueChange={(itemValue, itemIndex) => handleResistenciaChange(itemValue)}>
+                    <Picker.Item label="0" value="0" />
+                    <Picker.Item label="100" value="100" />
+                    <Picker.Item label="150" value='150' />
+                    <Picker.Item label="200" value='200' />
+                    <Picker.Item label="250" value='250' />
+                    <Picker.Item label="300" value='300' />
                 </Picker>
 
                 <Pressable style={styles.btnCalcular} onPress={handleCalculateVolume}>
-        <Text style={styles.txtBtnCalcular}>Calcular</Text>
-      </Pressable>
+                    <Text style={styles.txtBtnCalcular}>Calcular</Text>
+                </Pressable>
+
             </View>
         </ScrollView>
     );
@@ -151,26 +190,30 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
         borderRadius: 5,
         marginHorizontal: 20,
-      },
-      resultRow: {
+    },
+    resultRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 10,
-      },
-      resultLabel: {
+    },
+    resultLabel: {
         fontSize: 18,
         fontWeight: 'bold',
-      },
-      resultValue: {
+    },
+    resultValue: {
         fontSize: 18,
-      },
+    },
     txtBtnCalcular: {
         fontSize: 24,
         fontWeight: '600',
     },
-    picker:{
-      marginHorizontal: 100,
-    
+    picker: {
+        marginHorizontal: 100,
+    },
+    pickerItem: {
+        fontSize: 22, // Ajusta este tamaño según tus necesidades
+        height: 60,   // Puedes ajustar esta altura si es necesario
     }
+
 });

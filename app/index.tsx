@@ -8,8 +8,8 @@ const index = () => {
     <View style={styles.container}>
       <View style={styles.subcontainer}>
         <Image                             
-        style = {styles.Studio}
-        source={require('../assets/images/Quantum.png')}/>
+        style = {styles.logo}
+        source={require('../assets/images/logo-quatum-1.png')}/>
         <Text style={styles.title}>Quantum</Text>
 
         <Link href="/Dosificacion">
@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 20
   },
-  Studio:{
+  logo:{
     alignItems: 'center',
-    width:200, // Ancho
+    width:280, // Ancho
     height:300, // Alto
   },
   subcontainer:{
