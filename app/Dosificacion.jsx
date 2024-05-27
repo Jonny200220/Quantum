@@ -1,24 +1,39 @@
-import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 'react-native'
-import React, { useState } from 'react'
-import { Picker } from '@react-native-picker/picker'
+import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Picker } from '@react-native-picker/picker';
+import { useRouter } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'; 
 
 
 const Dosificadora = () => {
-    const [largo, setLargo] = useState('')
-    const [ancho, setAncho] = useState('')
-    const [espesor, setEspesor] = useState('')
+    const [largo, setLargo] = useState('');
+    const [ancho, setAncho] = useState('');
+    const [espesor, setEspesor] = useState('');
     const [volumen, setVolumen] = useState(0);
-    const [resistencia, setResistencia] = useState();
+    const [resistencia, setResistencia] = useState('');
     const [resistenciaMensaje, setResistenciaMensaje] = useState('');
+
+    // const router = useRouter();
+
+    const navigation = useNavigation();
 
     const handleCalculateVolume = () => {
         const largoValue = parseFloat(largo) || 0;
         const anchoValue = parseFloat(ancho) || 0;
         const espesorValue = parseFloat(espesor) || 0;
 
+
         if (largoValue > 0 && anchoValue > 0 && espesorValue > 0) {
             const calculatedVolume = largoValue * anchoValue * espesorValue;
             setVolumen(calculatedVolume);
+
+            //Aqui se navega y se pasan los parametros a la pantalla "Pruebas" o "Materiales"
+
+            // navigation.navigate('Pruebas', { volumen: calculatedVolume,
+            //                                 resistencia:resistencia, 
+            //                                 resistenciaMensaje:resistenciaMensaje });
+            navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia:resistencia, resistenciaMensaje:resistenciaMensaje });
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.', [
                 { text: 'OK', onPress: () => console.log('Alert dismissed') },
@@ -26,7 +41,7 @@ const Dosificadora = () => {
         }
     };
 
-    const handleResistenciaChange = (value: string) => {
+    const handleResistenciaChange = (value) => {
         setResistencia(value);
         let mensaje = '';
         switch (value) {
@@ -105,6 +120,7 @@ const Dosificadora = () => {
                     </View>
                     <View style={styles.resultRow}>
                       <Text style={styles.resultLabel}>Resistencia:</Text>
+                      
                       <Text style={styles.resultValue}>{resistencia}</Text>
                     </View>
                     <View style={styles.resultRow}>
@@ -126,10 +142,12 @@ const Dosificadora = () => {
                     <Picker.Item label="300" value='300' />
                 </Picker>
 
-                <Pressable style={styles.btnCalcular} onPress={handleCalculateVolume}>
+                <Pressable style={({ pressed }) => [
+              styles.btnCalcular,
+              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
+            ]} onPress={handleCalculateVolume}>
                     <Text style={styles.txtBtnCalcular}>Calcular</Text>
                 </Pressable>
-
             </View>
         </ScrollView>
     );
@@ -181,15 +199,21 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#ACC8E5',
         marginHorizontal: 20,
+        marginTop: 35,
+    },
+    btnMateriales: {
+        alignItems: 'center',
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#4CAF50',
+        marginHorizontal: 20,
         marginTop: 20,
     },
     resultContainer: {
         marginTop: 20,
-        padding: 20,
-        borderWidth: 1,
+        padding: 10,
         borderColor: '#ddd',
         borderRadius: 5,
-        marginHorizontal: 20,
     },
     resultRow: {
         flexDirection: 'row',
@@ -208,6 +232,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '600',
     },
+    txtBtnMateriales: {
+        fontSize: 24,
+        fontWeight: '600',
+    },
     picker: {
         marginHorizontal: 100,
     },
@@ -215,5 +243,4 @@ const styles = StyleSheet.create({
         fontSize: 22, // Ajusta este tamaño según tus necesidades
         height: 60,   // Puedes ajustar esta altura si es necesario
     }
-
 });
