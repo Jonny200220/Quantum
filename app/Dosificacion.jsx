@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
-import { useRouter } from 'expo-router';
-import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native'; 
-
+import { StatusBar } from 'expo-status-bar';
 
 const Dosificadora = () => {
     const [largo, setLargo] = useState('');
@@ -14,8 +12,6 @@ const Dosificadora = () => {
     const [resistencia, setResistencia] = useState('');
     const [resistenciaMensaje, setResistenciaMensaje] = useState('');
 
-    // const router = useRouter();
-
     const navigation = useNavigation();
 
     const handleCalculateVolume = () => {
@@ -23,17 +19,18 @@ const Dosificadora = () => {
         const anchoValue = parseFloat(ancho) || 0;
         const espesorValue = parseFloat(espesor) || 0;
 
-
         if (largoValue > 0 && anchoValue > 0 && espesorValue > 0) {
-            const calculatedVolume = largoValue * anchoValue * espesorValue;
+            let calculatedVolume = largoValue * anchoValue * espesorValue;
+            calculatedVolume = parseFloat(calculatedVolume.toFixed(3)); // Limiting to 3 decimal places
+
+            // Check if the integer part exceeds 3 digits
+            if (calculatedVolume >= 1000) {
+                calculatedVolume = parseFloat(calculatedVolume.toPrecision(6)); // limiting to 3 integers and 3 decimals
+            }
+
             setVolumen(calculatedVolume);
 
-            //Aqui se navega y se pasan los parametros a la pantalla "Pruebas" o "Materiales"
-
-            // navigation.navigate('Pruebas', { volumen: calculatedVolume,
-            //                                 resistencia:resistencia, 
-            //                                 resistenciaMensaje:resistenciaMensaje });
-            navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia:resistencia, resistenciaMensaje:resistenciaMensaje });
+            navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia: resistencia, resistenciaMensaje: resistenciaMensaje });
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.', [
                 { text: 'OK', onPress: () => console.log('Alert dismissed') },
@@ -120,7 +117,6 @@ const Dosificadora = () => {
                     </View>
                     <View style={styles.resultRow}>
                       <Text style={styles.resultLabel}>Resistencia:</Text>
-                      
                       <Text style={styles.resultValue}>{resistencia}</Text>
                     </View>
                     <View style={styles.resultRow}>
@@ -149,6 +145,7 @@ const Dosificadora = () => {
                     <Text style={styles.txtBtnCalcular}>Calcular</Text>
                 </Pressable>
             </View>
+            <StatusBar style="auto" />
         </ScrollView>
     );
 }

@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native';
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+
 
 const Materiales = () => {
     const route = useRoute(); 
@@ -8,36 +10,40 @@ const Materiales = () => {
     const resistencia = route.params?.resistencia || 0;
     const volumen = route.params?.volumen || 0;
 
-    const totalMateriales = (volumen * 1) / 0.342;
+    // const totalMateriales = (volumen * proporciones ) ;
 
   // Definimos las proporciones para cada resistencia
   const proporciones = {
-    100: { cemento: 1, arena: 6.25, grava: 7.25, agua: 2.50 },
-    150: { cemento: 1, arena: 5.50, grava: 6.75, agua: 2.25 },
-    200: { cemento: 1, arena: 4.25, grava: 5.25, agua: 1.75 },
-    250: { cemento: 1, arena: 3.50, grava: 4.50, agua: 1.25 },
-    // 300: { cemento: 1, arena: 6.25, grava: 7.25, agua: 2.50 },
-    // Agrega aquí las proporciones para otras resistencias si es necesario
+    100: { cemento: 4.50, arena: 31.50, grava: 37.13, agua: 11.25 },
+    150: { cemento: 5.50, arena: 30.25, grava: 38.50, agua: 11 },
+    200: { cemento: 6.75,arena: 28.69, grava: 40.50, agua: 11.81 },
+    250: { cemento: 7.75, arena: 27.13, grava: 40.69, agua: 11.63 },
+    300: { cemento: 8.50, arena: 23.38, grava: 38.25, agua: 10.63 },
   };
 
-  const proporcionesSeleccionadas = proporciones[resistencia] || { arena: 0, grava: 0, agua: 0 };
+  const proporcionesSeleccionadas = proporciones[resistencia] || { cemento: 0 ,arena: 0, grava: 0, agua: 0 };
 
   const arena = (totalMateriales * proporcionesSeleccionadas.arena).toFixed(3);
   const grava = (totalMateriales * proporcionesSeleccionadas.grava).toFixed(3);
   const agua = (totalMateriales * proporcionesSeleccionadas.agua).toFixed(3);
-  const cemento = totalMateriales.toFixed(3); // El cemento siempre es igual al total de materiales
+  const cemento = (totalMateriales * proporcionesSeleccionadas.cemento).toFixed(3); // El cemento siempre es igual al total de materiales
 
-
+  const totalMateriales = {
+    cemento: (volumen * proporcionesSeleccionadas.cemento).toFixed(2),
+    arena: (volumen * proporcionesSeleccionadas.arena).toFixed(2),
+    grava: (volumen * proporcionesSeleccionadas.grava).toFixed(2),
+    agua: (volumen * proporcionesSeleccionadas.agua).toFixed(2),
+  };
 
   return (
     <ScrollView style={styles.scrollContainer}>
         <Text style={styles.title}>Dosificación de concreto</Text>
         <Text style={styles.subtitle}>Uso sugerido: { resistenciaMensaje } </Text>
-        {/* <Text style={styles.subtitle}>Volumen: { volumen } </Text> */}
-        {/* <Text style={styles.subtitle}>Resistencia seleccionada: { resistencia } </Text> */}
+        <Text style={styles.subtitle}>Volumen: { volumen } </Text>
+        <Text style={styles.subtitle}>Resistencia seleccionada: { resistencia } </Text>
         <View style={styles.dosisContainer}>
-          <Text style={styles.dosisTitle}>Dosificación para obra</Text>
-          <Text style={styles.dosisSubtitle}>Unidad en botes</Text>
+          <Text style={styles.dosisTitle}>Dosificación en obra</Text>
+          {/* <Text style={styles.dosisSubtitle}>Unidad en botes y bultos</Text> */}
         </View>
           <View style={styles.buttonRow}>
             {/*Se da un hover al pressable*/}
@@ -45,15 +51,15 @@ const Materiales = () => {
               styles.button,
               { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
             ]}>
-              <Text style={styles.buttonText}>Cemento</Text>
-              <Text style={styles.buttonValue}>{cemento}</Text>
+              <Text style={styles.buttonText}>Cemento(Bultos)</Text>
+              <Text style={styles.buttonValue}>{totalMateriales.cemento}</Text>
             </Pressable>
             <Pressable style={({ pressed }) => [
               styles.button,
               { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
             ]}>
-              <Text style={styles.buttonText}>Grava</Text>
-              <Text style={styles.buttonValue}>{grava}</Text>
+              <Text style={styles.buttonText}>Grava(Botes)</Text>
+              <Text style={styles.buttonValue}>{ totalMateriales.grava}</Text>
             </Pressable>
           </View>
 
@@ -62,18 +68,18 @@ const Materiales = () => {
               styles.button,
               { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
             ]}>
-              <Text style={styles.buttonText}>Arena</Text>
-              <Text style={styles.buttonValue}>{arena}</Text>
+              <Text style={styles.buttonText}>Arena(Botes)</Text>
+              <Text style={styles.buttonValue}>{totalMateriales.arena}</Text>
             </Pressable>
             <Pressable style={({ pressed }) => [
               styles.button,
               { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
             ]}>
-              <Text style={styles.buttonText}>Agua</Text>
-              <Text style={styles.buttonValue}>{agua}</Text>
+              <Text style={styles.buttonText}>Agua(Botes)</Text>
+              <Text style={styles.buttonValue}>{totalMateriales.agua}</Text>
             </Pressable>
           </View>
-
+          <StatusBar style="auto" />
     </ScrollView>
   );
 }
@@ -128,7 +134,7 @@ const styles = StyleSheet.create({
   dosisTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 15,
     // marginHorizontal: 100,
     marginTop: 40
   },

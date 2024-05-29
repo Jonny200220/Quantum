@@ -9,7 +9,7 @@ const index = () => {
       <View style={styles.subcontainer}>
         <Image                             
         style = {styles.logo}
-        source={require('../assets/images/logo-quatum-1.png')}/>
+        source={require('../assets/images/logo-quatum-2.png')}/>
         <Text style={styles.title}>Quantum</Text>
 
         <Link href="/Dosificacion">
@@ -30,6 +30,7 @@ const index = () => {
 
 export default index
 
+// Lista de estilos que tendra cada componente de la aplicaicon 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
