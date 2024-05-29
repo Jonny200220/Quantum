@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native'; 
 import { StatusBar } from 'expo-status-bar';
+import { Image } from 'expo-image'
 
 const Dosificadora = () => {
     const [largo, setLargo] = useState('');
@@ -68,9 +69,13 @@ const Dosificadora = () => {
 
     return (
         <ScrollView style={styles.scrollContainer}>
+            
             <View>
                 <View style={styles.titlesContainer}>
                     <Text style={styles.title}>Dosificación de concreto</Text>
+                    <Image                             
+        style = {styles.logo}
+        source={require('../assets/images/logo-quatum-2.png')}/>
                     <Text style={styles.subTitle}>Ingresar Cantidad</Text>
                 </View>
                 <View style={styles.campos}>
@@ -156,6 +161,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f3f4f6',
     },
+    logo:{
+        // alignItems: 'center',
+        width:180, // Ancho
+        height:200, // Alto
+      },
     titlesContainer: {
         alignItems: 'center',
     },
@@ -183,7 +193,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderBottomWidth: 1,
         borderColor: 'black',
-        padding: 10,
+        padding: 20,
         textAlign: 'center',
     },
     content: {
@@ -196,7 +206,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#ACC8E5',
         marginHorizontal: 20,
-        marginTop: 35,
+        marginVertical: 80
     },
     btnMateriales: {
         alignItems: 'center',
@@ -221,9 +231,11 @@ const styles = StyleSheet.create({
     resultLabel: {
         fontSize: 18,
         fontWeight: 'bold',
+        marginBottom: 10
     },
     resultValue: {
         fontSize: 18,
+        marginBottom: 10
     },
     txtBtnCalcular: {
         fontSize: 24,
