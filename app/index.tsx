@@ -95,7 +95,7 @@ const Dosificadora = () => {
                 <View style={styles.campos}>
                     <Text style={styles.inputLabel}>Ancho: </Text>
                     <TextInput
-                      -  style={styles.input}
+                       style={styles.input}
                         placeholder="Ingresa Aquí"
                         placeholderTextColor="#666"
                         keyboardType="numeric"
@@ -153,9 +153,14 @@ const Dosificadora = () => {
                 </Pressable>
             </View>
             <StatusBar style="auto" />
-            <Link href="/Modal" style={styles.floatingButton}>
-                <Text style={styles.floatingButtonText}>i</Text>
+
+            <Pressable style={styles.floatingButton}>
+            <Link href="/Modal" >
+                <Text style={styles.floatingButtonText}>?</Text>
             </Link>
+            </Pressable>
+
+            
 
         </ScrollView>
     );
@@ -263,19 +268,23 @@ const styles = StyleSheet.create({
     },
     picker: {
         marginHorizontal: 100,
+        alignContent: 'center',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        
     },
     pickerItem: {
-        fontSize: 22, // Ajusta este tamaño según tus necesidades
-        height: 60,   // Puedes ajustar esta altura si es necesario
+        fontSize: 22, // tamaño Picker
+        height: 60,   // Altura depende del picker nativo
     },
     floatingButton: {
       position: 'absolute',
-      top: 40,
-      right: 20,
+      top: 15,
+      right: 15,
       backgroundColor: '#E55406',
-      borderRadius: 50,
-      width: 50,
-      height: 50,
+      borderRadius: 100,
+      width: 30,
+      height: 30,
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1000,
@@ -285,6 +294,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       textAlign: 'center',
-      marginVertical: 100
+      marginVertical: 100,
+      borderRadius: 50
   },
 });

@@ -8,6 +8,7 @@ export default function RootLayout() {
         name="index"
         options={{
           title: 'Dosificación de concreto',
+          headerTitleAlign: 'center',
           headerTitleStyle: {
             fontWeight: '800',
             fontSize: 25,
@@ -23,10 +24,8 @@ export default function RootLayout() {
         name="Materiales"
         options={{
           title: 'Dosificacion de Materiales',
-          headerBackTitle: 'Back', 
-          headerBackTitleStyle:{
-            
-          },
+          headerBackTitle: 'Back',
+          headerTitleAlign: 'center',
           headerTitleStyle: {
             fontWeight: '800',
             fontSize: 16,
@@ -34,6 +33,7 @@ export default function RootLayout() {
           },
           headerStyle: {
             backgroundColor: '#E55406', // color de fondo del encabezado
+            
           },
         }}
       />
@@ -42,7 +42,8 @@ export default function RootLayout() {
         name="Modal"
         options={{
           presentation: 'modal',
-          title: 'Instrucciones de Uso'
+          title: 'Instrucciones de Uso',
+          headerTitleAlign: 'center',
         }}
       />
 
