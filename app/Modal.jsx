@@ -18,7 +18,7 @@ export default function Modal() {
           <Text style={styles.backButtonText}>Back</Text>
         </Pressable>
       )}
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
     </View>
   );
 }

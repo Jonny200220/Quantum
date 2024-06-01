@@ -144,11 +144,11 @@ const Dosificadora = () => {
                 </Picker>
 
                 <Pressable style={({ pressed }) => [
-              styles.btnCalcular,
-              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
-            ]} onPress={handleCalculateVolume}>
+                    styles.btnCalcular, { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' }
+                ]} onPress={handleCalculateVolume}>
                     <Text style={styles.txtBtnCalcular}>Calcular</Text>
                 </Pressable>
+
             </View>
             <StatusBar style="auto" />
         </ScrollView>

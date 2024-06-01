@@ -3,7 +3,7 @@ import { Stack } from 'expo-router';
 export default function RootLayout() {
   return (
     <Stack>
-      {/*Pantalla de navegacion para Dosificacion */}
+      {/*Pantalla de navegacion para "Dosificacion" */}
       <Stack.Screen
         name="index"
         options={{
@@ -19,10 +19,10 @@ export default function RootLayout() {
           },
         }}
       />
-      {/*Pantalla de navegacion para Materiales */}
+      {/*Pantalla de navegacion para "Materiales" */}
       <Stack.Screen
         name="Materiales"
-        options={{
+        options={{  // Options es para darle un contexto a la pantalla, que titulo, estilos, etc.
           title: 'Dosificacion de Materiales',
           headerBackTitle: 'Back',
           headerTitleAlign: 'center',
@@ -37,7 +37,7 @@ export default function RootLayout() {
           },
         }}
       />
-      {/*Pantalla de navegacion para Modal de instrucciones */}
+      {/*Pantalla de navegacion para "Modal" */}
       <Stack.Screen
         name="Modal"
         options={{
