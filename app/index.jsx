@@ -73,7 +73,6 @@ const Dosificadora = () => {
             
             <View>
                 <View style={styles.titlesContainer}>
-                    {/* <Text style={styles.title}>Dosificación de concreto</Text> */}
                     <Image                             
         style = {styles.logo}
         source={require('../assets/images/logo-quatum-2.png')}/>
@@ -182,14 +181,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center'
     },
-    title: {
-        fontSize: 25,
-        fontWeight: '700',
-        marginVertical: 25,
-    },
     subTitle: {
         fontSize: 26,
         fontWeight: '700',
+        marginVertical: 10,
     },
     campos: {
         flexDirection: 'row',
@@ -201,13 +196,13 @@ const styles = StyleSheet.create({
         marginRight: 10,
         fontSize: 16,
         fontWeight: 'bold',
-        marginTop: 25,
+        marginTop: 20,
     },
     inputLabelE:{
       marginRight: 5,
         fontSize: 14,
         fontWeight: 'bold',
-        marginTop: 25,
+        marginTop: 20,
     },
     input: {
         flex: 1,
@@ -295,6 +290,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       textAlign: 'center',
       marginVertical: 100,
-      borderRadius: 50
+      borderRadius: 50,
   },
 });

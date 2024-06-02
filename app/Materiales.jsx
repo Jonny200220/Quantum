@@ -26,7 +26,7 @@ const Materiales = () => {
   const arena = (totalMateriales * proporcionesSeleccionadas.arena).toFixed(3);
   const grava = (totalMateriales * proporcionesSeleccionadas.grava).toFixed(3);
   const agua = (totalMateriales * proporcionesSeleccionadas.agua).toFixed(3);
-  const cemento = (totalMateriales * proporcionesSeleccionadas.cemento).toFixed(3); // El cemento siempre es igual al total de materiales
+  const cemento = (totalMateriales * proporcionesSeleccionadas.cemento).toFixed(3);
 
   const totalMateriales = {
     cemento: (volumen * proporcionesSeleccionadas.cemento).toFixed(2),
@@ -47,16 +47,17 @@ const Materiales = () => {
         </View>
           <View style={styles.buttonRow}>
             {/*Se da un hover al pressable*/}
+
             <Pressable style={({ pressed }) => [
               styles.button,
-              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
+              { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
             ]}>
               <Text style={styles.buttonText}>Cemento(Bultos)</Text>
               <Text style={styles.buttonValue}>{totalMateriales.cemento}</Text>
             </Pressable>
             <Pressable style={({ pressed }) => [
               styles.button,
-              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
+              { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
             ]}>
               <Text style={styles.buttonText}>Grava(Botes)</Text>
               <Text style={styles.buttonValue}>{ totalMateriales.grava}</Text>
@@ -66,18 +67,19 @@ const Materiales = () => {
           <View style={styles.buttonRow}>
             <Pressable style={({ pressed }) => [
               styles.button,
-              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
+              { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
             ]}>
               <Text style={styles.buttonText}>Arena(Botes)</Text>
               <Text style={styles.buttonValue}>{totalMateriales.arena}</Text>
             </Pressable>
             <Pressable style={({ pressed }) => [
               styles.button,
-              { backgroundColor: pressed ? '#99C1EA' : '#ACC8E5' },
+              { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
             ]}>
               <Text style={styles.buttonText}>Agua(Botes)</Text>
               <Text style={styles.buttonValue}>{totalMateriales.agua}</Text>
             </Pressable>
+
           </View>
           <StatusBar style="auto" />
     </ScrollView>
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
-    fontWeight: '400'
+    fontWeight: '500'
   },
   materialContainer: {
     marginVertical: 20,
@@ -151,15 +153,15 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 20,
   },
   button: {
     flex: 1,
-    backgroundColor: '#ACC8E5', // Color azul claro
+    backgroundColor: '#4CAF50', // Color azul claro
     padding: 10,
     borderRadius: 8,
     alignItems: 'center',
-    marginHorizontal: 5,
+    marginHorizontal: 20,
   },
   buttonText: {
     fontSize: 16,
