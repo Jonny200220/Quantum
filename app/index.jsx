@@ -118,7 +118,7 @@ const Dosificadora = () => {
                 </View>
                 <View style={styles.resultContainer}>  
                     <View style={styles.resultRow}>
-                      <Text style={styles.resultLabel}>Cantidad:</Text>
+                      <Text style={styles.resultLabel}>Volumen:</Text>
                       <Text style={styles.resultValue}>{volumen} m³</Text>
                     </View>
                     <View style={styles.resultRow}>
@@ -283,6 +283,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1000,
+      textAlign: 'center',
   },
   floatingButtonText: {
       color: 'white',

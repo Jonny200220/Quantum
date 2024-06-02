@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Pressable, Linking } from 'react-native';
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-
+import { Image } from 'expo-image'
 
 const Materiales = () => {
     const route = useRoute(); 
@@ -33,6 +33,11 @@ const Materiales = () => {
     arena: (volumen * proporcionesSeleccionadas.arena).toFixed(2),
     grava: (volumen * proporcionesSeleccionadas.grava).toFixed(2),
     agua: (volumen * proporcionesSeleccionadas.agua).toFixed(2),
+  };
+  
+  const openInsta = () => {
+    const urlInsta = 'https://www.instagram.com/studiodigitalmx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
+    Linking.openURL(urlInsta).catch((err) => console.error("Error al abrir la URL:", err));
   };
 
   return (
@@ -81,6 +86,15 @@ const Materiales = () => {
             </Pressable>
 
           </View>
+
+          <View style={{alignItems: 'center', marginVertical: 30,}}>
+            <Pressable onPress={openInsta}>
+              <Image                             
+              style = {styles.logo}
+              source={require('../assets/images/logo studio.png')}/>
+            </Pressable>
+          </View>
+          
           <StatusBar style="auto" />
     </ScrollView>
   );
@@ -108,6 +122,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     fontWeight: '500'
+  },
+  logo:{
+    width: 220,
+    height: 60,
   },
   materialContainer: {
     marginVertical: 20,
