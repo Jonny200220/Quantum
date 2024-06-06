@@ -10,9 +10,7 @@ const Materiales = () => {
     const resistencia = route.params?.resistencia || 0;
     const volumen = route.params?.volumen || 0;
 
-    // const totalMateriales = (volumen * proporciones ) ;
-
-  // Definimos las proporciones para cada resistencia
+  // Aqui definimos las proporciones para cada resistencia
   const proporciones = {
     100: { cemento: 4.50, arena: 31.50, grava: 37.13, agua: 11.25 },
     150: { cemento: 5.50, arena: 30.25, grava: 38.50, agua: 11 },
@@ -21,29 +19,32 @@ const Materiales = () => {
     300: { cemento: 8.50, arena: 23.38, grava: 38.25, agua: 10.63 },
   };
 
+  // Aqui esta la logica para hacer las operaciones para calcular las cantidades de cemento, arena, grava y agua en base a al resistencia seleccionada 
   const proporcionesSeleccionadas = proporciones[resistencia] || { cemento: 0 ,arena: 0, grava: 0, agua: 0 };
 
   const arena = (totalMateriales * proporcionesSeleccionadas.arena).toFixed(3);
   const grava = (totalMateriales * proporcionesSeleccionadas.grava).toFixed(3);
   const agua = (totalMateriales * proporcionesSeleccionadas.agua).toFixed(3);
   const cemento = (totalMateriales * proporcionesSeleccionadas.cemento).toFixed(3);
-
+  
   const totalMateriales = {
     cemento: (volumen * proporcionesSeleccionadas.cemento).toFixed(2),
     arena: (volumen * proporcionesSeleccionadas.arena).toFixed(2),
     grava: (volumen * proporcionesSeleccionadas.grava).toFixed(2),
     agua: (volumen * proporcionesSeleccionadas.agua).toFixed(2),
-  };
+    };
+  // Aqui esta la logica para hacer las operaciones para calcular las cantidades de cemento, arena, grava y agua en base a al resistencia seleccionada
   
+  // Funcion de link para el redireccionamiento a la cuenta de instagram
   const openInsta = () => {
     const urlInsta = 'https://www.instagram.com/studiodigitalmx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
     Linking.openURL(urlInsta).catch((err) => console.error("Error al abrir la URL:", err));
   };
-
+// A partir de aqui todo es frontend, y estilos que se le dan a la pantalla del celular
   return (
     <ScrollView style={styles.scrollContainer}>
         <Text style={styles.title}>Dosificación de concreto</Text>
-        <Text style={styles.subtitle}>Uso sugerido: { resistenciaMensaje } </Text>
+        <Text style={styles.subtitle}>Uso sugerido: { resistenciaMensaje } </Text> 
         <Text style={styles.subtitle}>Volumen: { volumen } </Text>
         <Text style={styles.subtitle}>Resistencia seleccionada: { resistencia } </Text>
         <View style={styles.dosisContainer}>
@@ -100,6 +101,7 @@ const Materiales = () => {
   );
 }
 
+// A partir de aqui inician todos los estilos que se le dan a la pantalla, estos se escriben como si fueran un objeto en json
 export default Materiales;
 
 const styles = StyleSheet.create({

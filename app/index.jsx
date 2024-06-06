@@ -1,21 +1,24 @@
+// Importaciones necesarias para el proyecto
 import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native'; // Importacion necesarias para lanavegacion del proyecto
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image'
-import { Link } from 'expo-router';
+import { Link } from 'expo-router'; // Importaciones necesarias para el routing del proyecto
 
+// funcion de dosificadora (Lo que se "muestra en la pantalla")
 const Dosificadora = () => {
+    // Controladores del estado de los formularios, resistencia, mensajes de resistencia, volumen y navegacion
     const [largo, setLargo] = useState('');
     const [ancho, setAncho] = useState('');
     const [espesor, setEspesor] = useState('');
     const [volumen, setVolumen] = useState(0);
     const [resistencia, setResistencia] = useState('');
     const [resistenciaMensaje, setResistenciaMensaje] = useState('');
-
     const navigation = useNavigation();
 
+    // Funcion que controla el calculo del volumen de los input
     const handleCalculateVolume = () => {
         const largoValue = parseFloat(largo) || 0;
         const anchoValue = parseFloat(ancho) || 0;
@@ -23,23 +26,25 @@ const Dosificadora = () => {
 
         if (largoValue > 0 && anchoValue > 0 && espesorValue > 0) {
             let calculatedVolume = largoValue * anchoValue * espesorValue;
-            calculatedVolume = parseFloat(calculatedVolume.toFixed(3)); // Limiting to 3 decimal places
+            calculatedVolume = parseFloat(calculatedVolume.toFixed(3)); // limite 3 decimales
 
-            // Check if the integer part exceeds 3 digits
+            // Verifica que si el int excede 3 digitos
             if (calculatedVolume >= 1000) {
                 calculatedVolume = parseFloat(calculatedVolume.toPrecision(6)); // limiting to 3 integers and 3 decimals
             }
 
             setVolumen(calculatedVolume);
 
+            // Navergacion y envio de props de index de dosificcion a Materiales
             navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia: resistencia, resistenciaMensaje: resistenciaMensaje });
+            // Verificacion de los input y mensaje de error
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.', [
                 { text: 'OK', onPress: () => console.log('Alert dismissed') },
             ]);
         }
     };
-
+    // Funcionabilidad del picker (Resistrencia, resistenciaMensaje)
     const handleResistenciaChange = (value) => {
         setResistencia(value);
         let mensaje = '';
@@ -67,7 +72,7 @@ const Dosificadora = () => {
         }
         setResistenciaMensaje(mensaje);
     };
-
+// A partir de aqui todo es frontend, y estilos que se le dan a la pantalla del celular
     return (
         <ScrollView style={styles.scrollContainer}>
             
@@ -130,7 +135,7 @@ const Dosificadora = () => {
                       <Text style={styles.resultValue}>{resistenciaMensaje}</Text>
                     </View>
                 </View>
-
+                {/* Picker o selector nativo para la resistencia */}
                 <Picker 
                     style={styles.picker}
                     itemStyle={styles.pickerItem}
@@ -143,7 +148,7 @@ const Dosificadora = () => {
                     <Picker.Item label="250" value='250' />
                     <Picker.Item label="300" value='300' />
                 </Picker>
-
+                {/* Boton para calcular el volumen */}
                 <Pressable style={({ pressed }) => [
               styles.btnCalcular,
               { backgroundColor: pressed ? '#ACE506' : '#E55406' },
@@ -152,20 +157,19 @@ const Dosificadora = () => {
                 </Pressable>
             </View>
             <StatusBar style="auto" />
-
+            {/* Modal que se abre al momento de presionar el boton flotante */}
             <Pressable style={styles.floatingButton}>
             <Link href="/Modal" >
                 <Text style={styles.floatingButtonText}>?</Text>
             </Link>
             </Pressable>
 
-            
-
         </ScrollView>
     );
 }
 export default Dosificadora;
 
+// A partir de aqui inician todos los estilos que se le dan a la pantalla, estos se escriben como si fueran un objeto en json
 const styles = StyleSheet.create({
     scrollContainer: {
         flex: 1,
@@ -256,6 +260,7 @@ const styles = StyleSheet.create({
     txtBtnCalcular: {
         fontSize: 24,
         fontWeight: '600',
+        color: '#fff',
     },
     txtBtnMateriales: {
         fontSize: 24,

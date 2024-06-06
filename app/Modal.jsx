@@ -23,6 +23,7 @@ export default function Modal() {
   );
 }
 
+// A partir de aqui inician todos los estilos que se le dan a la pantalla, estos se escriben como si fueran un objeto en json
 const styles = StyleSheet.create({
   container: {
     flex: 1,
