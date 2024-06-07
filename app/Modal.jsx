@@ -1,9 +1,18 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { Link, router } from 'expo-router';
+import { View, Text, Pressable, StyleSheet, Linking } from 'react-native';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 export default function Modal() {
   const isPresented = router.canGoBack();
+  
+  const openTikTok = () => {
+    const urlTikTok = 'https://www.tiktok.com/@studiodigitalpue?_t=8mzhcnqPcbW&_r=1';
+    Linking.openURL(urlTikTok).catch((err) => console.error("Error al abrir la URL:", err));
+  };
+
+  const openTikTokProfile = () => {
+    openTikTok(); // Llamar a la función que abre la URL de TikTok
+  };
 
   return (
     <View style={styles.container}>
@@ -18,12 +27,15 @@ export default function Modal() {
           <Text style={styles.backButtonText}>Back</Text>
         </Pressable>
       )}
+      {/* Botón para abrir el perfil de TikTok */}
+      <Pressable onPress={openTikTokProfile} style={styles.tikTokButton}>
+        <Text style={styles.tikTokButtonText}>TikTok Profile</Text>
+      </Pressable>
       <StatusBar style="auto" />
     </View>
   );
 }
 
-// A partir de aqui inician todos los estilos que se le dan a la pantalla, estos se escriben como si fueran un objeto en json
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -52,6 +64,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   backButtonText: {
+    color: 'black',
+    fontSize: 16,
+  },
+  tikTokButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  tikTokButtonText: {
     color: 'black',
     fontSize: 16,
   },

@@ -1,7 +1,8 @@
 // Importaciones necesarias para el proyecto
 import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable } from 'react-native';
 import React, { useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
+// import { Picker } from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
 import { useNavigation } from '@react-navigation/native'; // Importacion necesarias para lanavegacion del proyecto
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image'
@@ -49,9 +50,9 @@ const Dosificadora = () => {
         setResistencia(value);
         let mensaje = '';
         switch (value) {
-            case '0':
-                mensaje = "Seleccionar Resistencia";
-                break;
+            // case '0':
+            //     mensaje = "Seleccionar Resistencia";
+            //     break;
             case '100':
                 mensaje = "Pisos, firmes y banquetas";
                 break;
@@ -135,19 +136,34 @@ const Dosificadora = () => {
                       <Text style={styles.resultValue}>{resistenciaMensaje}</Text>
                     </View>
                 </View>
+                
                 {/* Picker o selector nativo para la resistencia */}
-                <Picker 
-                    style={styles.picker}
-                    itemStyle={styles.pickerItem}
-                    selectedValue={resistencia} 
-                    onValueChange={(itemValue, itemIndex) => handleResistenciaChange(itemValue)}>
-                    <Picker.Item label="0" value="0" />
-                    <Picker.Item label="100" value="100" />
-                    <Picker.Item label="150" value='150' />
-                    <Picker.Item label="200" value='200' />
-                    <Picker.Item label="250" value='250' />
-                    <Picker.Item label="300" value='300' />
-                </Picker>
+                <Text style={{fontSize: 20, marginTop: 10, textAlign :'center', marginBottom: 12, fontWeight: '500'}} >Selecciona una Resistencia (f')</Text>
+                <RNPickerSelect
+                    onValueChange={handleResistenciaChange}
+                    items={[
+                        // { label: '0', value: '0' },
+                        { label: '100', value: '100' },
+                        { label: '150', value: '150' },
+                        { label: '200', value: '200' },
+                        { label: '250', value: '250' },
+                        { label: '300', value: '300' },
+                    ]}
+                    style={{
+                        inputIOS: {
+                            ...styles.pickerIos, // aplicamos el estilo del picker
+                        },
+                        inputAndroid: {
+                            ...styles.pickerAnd, // aplicamos el estilo del picker
+                        },
+                        placeholder: {
+                            color: '#666',
+                        },
+                    }}
+                    value={resistencia}
+                    useNativeAndroidPickerStyle={false} // para aplicar los estilos personalizados en Android
+                />
+
                 {/* Boton para calcular el volumen */}
                 <Pressable style={({ pressed }) => [
               styles.btnCalcular,
@@ -266,16 +282,23 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '600',
     },
-    picker: {
+    pickerAnd: {
         marginHorizontal: 100,
-        alignContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#fff',
-        borderRadius: 10,
-        
+        borderRadius: 5,
+        padding: 10,
+        textAlign: 'center'
     },
-    pickerItem: {
+    pickerIos:{
+        marginHorizontal: 100,
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 10,
         fontSize: 22, // tamaño Picker
-        height: 60,   // Altura depende del picker nativo
+        height: 60,
+        textAlign: 'center',
     },
     floatingButton: {
       position: 'absolute',
@@ -285,17 +308,13 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       width: 30,
       height: 30,
-      justifyContent: 'center',
       alignItems: 'center',
       zIndex: 1000,
-      textAlign: 'center',
   },
   floatingButtonText: {
       color: 'white',
       fontSize: 24,
       fontWeight: 'bold',
-      textAlign: 'center',
-      marginVertical: 100,
-      borderRadius: 50,
+      borderRadius: 100,
   },
 });
