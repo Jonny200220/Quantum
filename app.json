@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Quantum-Astro",
-    "slug": "Quantum-Astro",
-    "version": "1.0.0",
+    "name": "QuantumApp",
+    "slug": "QuantumApp",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo-quatum512.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logo-quatum-2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,9 +17,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo-quatum512.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jonny200220.QuantumApp"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e362582d-70f5-407d-9df2-6af34dd3384b"
+      }
     }
   }
 }

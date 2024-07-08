@@ -1,0 +1,173 @@
+import { StyleSheet, Text, View, ScrollView, Pressable, Linking, Platform } from 'react-native';
+import React from 'react';
+import { useRoute } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { Image } from 'expo-image';
+
+const Materiales = () => {
+    const route = useRoute(); 
+    const resistenciaMensaje = route.params?.resistenciaMensaje || '';
+    const resistencia = route.params?.resistencia || 0;
+    const volumen = route.params?.volumen || 0;
+
+    const proporciones = {
+        100: { cemento: 4.50, arena: 31.50, grava: 37.13, agua: 11.25 },
+        150: { cemento: 5.50, arena: 30.25, grava: 38.50, agua: 11 },
+        200: { cemento: 6.75, arena: 28.69, grava: 40.50, agua: 11.81 },
+        250: { cemento: 7.75, arena: 27.13, grava: 40.69, agua: 11.63 },
+        300: { cemento: 8.50, arena: 23.38, grava: 38.25, agua: 10.63 },
+    };
+
+    const proporcionesSeleccionadas = proporciones[resistencia] || { cemento: 0 ,arena: 0, grava: 0, agua: 0 };
+
+    const totalMateriales = {
+        cemento: (volumen * proporcionesSeleccionadas.cemento).toFixed(2),
+        arena: (volumen * proporcionesSeleccionadas.arena).toFixed(2),
+        grava: (volumen * proporcionesSeleccionadas.grava).toFixed(2),
+        agua: (volumen * proporcionesSeleccionadas.agua).toFixed(2),
+    };
+
+    const openInsta = () => {
+        const urlInsta = 'https://www.instagram.com/studiodigitalmx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
+        Linking.openURL(urlInsta).catch((err) => console.error("Error al abrir la URL:", err));
+    };
+
+    const enviarMensajeWhatsapp = () =>{
+        const mensaje = `Hola, me gustaria cotizar el siguiente material: \nCemento: ${totalMateriales.cemento} Bultos\nGrava: ${totalMateriales.grava} Botes\nArena: ${totalMateriales.arena} Botes`;
+        const numero = '522222396612';
+        const mobile = Platform.OS === 'android' || Platform.OS === 'ios' ? numero : '+' + numero;
+        const url = `whatsapp://send?text=${mensaje}&phone=${mobile}`;
+        Linking.openURL(url)
+        .catch(() => alert("Asegurate de tener whatsapp instalado en tu dispositivo"));      
+    };
+
+    return (
+        <ScrollView style={styles.scrollContainer}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Dosificación de concreto</Text>
+                <Text style={styles.subtitle}>Uso sugerido: {resistenciaMensaje}</Text> 
+                <Text style={styles.subtitle}>Volumen: {volumen} m³</Text>
+                <Text style={styles.subtitle}>Resistencia seleccionada: {resistencia}</Text>
+                
+                <View style={styles.dosisContainer}>
+                    <Text style={styles.dosisTitle}>Dosificación en obra</Text>
+                </View>
+                
+                <View style={styles.buttonRow}>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Cemento (Bultos)</Text>
+                        <Text style={styles.buttonValue}>{totalMateriales.cemento}</Text>
+                    </Pressable>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Grava (Botes)</Text>
+                        <Text style={styles.buttonValue}>{totalMateriales.grava}</Text>
+                    </Pressable>
+                </View>
+
+                <View style={styles.buttonRow}>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Arena (Botes)</Text>
+                        <Text style={styles.buttonValue}>{totalMateriales.arena}</Text>
+                    </Pressable>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Agua (Botes)</Text>
+                        <Text style={styles.buttonValue}>{totalMateriales.agua}</Text>
+                    </Pressable>
+                </View>
+
+                <Pressable style={({ pressed }) => [styles.btnCotizar, { backgroundColor: pressed ? '#4CAF50' : '#E55406' }]}
+                            onPress={enviarMensajeWhatsapp}>
+                    <Text style={{fontSize: 20, fontWeight: '600', color: '#fff',}}>Cotizar Material</Text>
+                </Pressable>
+
+                <View style={{alignItems: 'center', marginVertical: 30,}}>
+                    <Pressable onPress={openInsta}>
+                        <Image                             
+                            style={{width: 220, height: 60,}}
+                            source={require('../assets/images/logo studio.png')}
+                        />
+                    </Pressable>
+                </View>
+
+                <StatusBar style="auto" />
+            </View>
+        </ScrollView>
+    );
+};
+
+export default Materiales;
+
+const styles = StyleSheet.create({
+    scrollContainer: {
+        flex: 1,
+        backgroundColor: '#F3F4F6',
+    },
+    container: {
+        padding: 20,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: '700',
+        marginVertical: 20,
+        textAlign: 'center',
+        color: '#333',
+    },
+    subtitle: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 15,
+        fontWeight: '500',
+        color: '#555',
+    },
+    btnCotizar: {
+        alignItems: 'center',
+        padding: 15,
+        borderRadius: 10,
+        marginVertical: 30,
+    },
+    dosisContainer: {
+        alignItems: 'center',
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    dosisTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    buttonRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+    },
+    button: {
+        flex: 1,
+        padding: 15,
+        borderRadius: 10,
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+    buttonValue: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginTop: 5,
+    },
+});
