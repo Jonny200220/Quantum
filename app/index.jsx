@@ -41,16 +41,16 @@ const Dosificadora = () => {
         let mensaje = '';
         switch (value) {
             case '100':
-                mensaje = "Pisos, firmes y banquetas";
+                mensaje = "Plantillas";
                 break;
             case '150':
-                mensaje = "Dalas, castillos y cadenas";
+                mensaje = "Pisos y Banquetas";
                 break;
             case '200':
-                mensaje = "Zapatas, losas y trabes";
+                mensaje = "Dalas, Castillos y Cadenas";
                 break;
             case '250':
-                mensaje = "Columnas y losas especiales";
+                mensaje = "Zapatas, Losas y trabes";
                 break;
             case '300':
                 mensaje = "Preesforzados";

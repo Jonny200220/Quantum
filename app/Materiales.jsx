@@ -27,6 +27,12 @@ const Materiales = () => {
         agua: (volumen * proporcionesSeleccionadas.agua).toFixed(2),
     };
 
+    const proporcionesUnBulto = {
+        grava: (totalMateriales.grava / totalMateriales.cemento ).toFixed(2),
+        arena: (totalMateriales.arena / totalMateriales.cemento ).toFixed(2),
+        agua: (totalMateriales.agua / totalMateriales.cemento ).toFixed(2),
+    }
+
     const openInsta = () => {
         const urlInsta = 'https://www.instagram.com/studiodigitalmx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
         Linking.openURL(urlInsta).catch((err) => console.error("Error al abrir la URL:", err));
@@ -43,14 +49,14 @@ const Materiales = () => {
 
     return (
         <ScrollView style={styles.scrollContainer}>
-            <View style={styles.container}>
+            <View style={{padding : 15}}>
                 <Text style={styles.title}>Dosificación de concreto</Text>
                 <Text style={styles.subtitle}>Uso sugerido: {resistenciaMensaje}</Text> 
                 <Text style={styles.subtitle}>Volumen: {volumen} m³</Text>
                 <Text style={styles.subtitle}>Resistencia seleccionada: {resistencia}</Text>
                 
                 <View style={styles.dosisContainer}>
-                    <Text style={styles.dosisTitle}>Dosificación en obra</Text>
+                    <Text style={styles.dosisTitle}>Dosificación en obra Total</Text>
                 </View>
                 
                 <View style={styles.buttonRow}>
@@ -69,7 +75,7 @@ const Materiales = () => {
                         <Text style={styles.buttonValue}>{totalMateriales.grava}</Text>
                     </Pressable>
                 </View>
-
+ 
                 <View style={styles.buttonRow}>
                     <Pressable style={({ pressed }) => [
                         styles.button,
@@ -84,6 +90,44 @@ const Materiales = () => {
                     ]}>
                         <Text style={styles.buttonText}>Agua (Botes)</Text>
                         <Text style={styles.buttonValue}>{totalMateriales.agua}</Text>
+                    </Pressable>
+                </View>
+
+                <View style={styles.dosisContainer}>
+                    <Text style={styles.dosisTitle}>Dosificación en obra para un bulto</Text>
+                </View>
+
+                <View style={styles.buttonRow}>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Cemento (Bultos)</Text>
+                        <Text style={styles.buttonValue}>1</Text>
+                    </Pressable>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Grava (Botes)</Text>
+                        <Text style={styles.buttonValue}>{proporcionesUnBulto.grava}</Text>
+                    </Pressable>
+                </View>
+
+                <View style={styles.buttonRow}>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Arena (Botes)</Text>
+                        <Text style={styles.buttonValue}>{proporcionesUnBulto.arena}</Text>
+                    </Pressable>
+                    <Pressable style={({ pressed }) => [
+                        styles.button,
+                        { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
+                    ]}>
+                        <Text style={styles.buttonText}>Agua (Botes)</Text>
+                        <Text style={styles.buttonValue}>{proporcionesUnBulto.agua}</Text>
                     </Pressable>
                 </View>
 
@@ -114,13 +158,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F3F4F6',
     },
-    container: {
-        padding: 20,
-    },
     title: {
         fontSize: 26,
         fontWeight: '700',
-        marginVertical: 20,
+        marginBottom: 5,
         textAlign: 'center',
         color: '#333',
     },
@@ -133,9 +174,10 @@ const styles = StyleSheet.create({
     },
     btnCotizar: {
         alignItems: 'center',
-        padding: 15,
+        padding: 10,
         borderRadius: 10,
-        marginVertical: 30,
+        marginVertical: 10,
+        marginHorizontal: 10,
     },
     dosisContainer: {
         alignItems: 'center',
@@ -150,11 +192,11 @@ const styles = StyleSheet.create({
     buttonRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     button: {
         flex: 1,
-        padding: 15,
+        padding: 10,
         borderRadius: 10,
         alignItems: 'center',
         marginHorizontal: 10,
