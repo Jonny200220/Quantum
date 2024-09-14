@@ -1,4 +1,3 @@
-// Importaciones necesarias para el proyecto
 import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable, Platform } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
@@ -66,43 +65,52 @@ const Dosificadora = () => {
             <View style={styles.container}>
                 <View style={styles.titlesContainer}>
                     <Image style={styles.logo} source={require('../assets/images/logo-quatum-2.png')} />
-                    <Text style={styles.subTitle}>Ingresar Cantidad</Text>
+                    <Text style={styles.subTitle}>QUANTUM</Text>
                 </View>
 
                 <View style={styles.campos}>
-                    <Text style={styles.inputLabel}>Largo: </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Ingresa Aquí"
-                        placeholderTextColor="#999"
-                        keyboardType="numeric"
-                        value={largo}
-                        onChangeText={text => setLargo(text)}
-                    />
+                    <Text style={styles.inputLabel}>Largo (metros): </Text>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}    
+                            placeholder="Ingresa Aquí"
+                            placeholderTextColor="#999"
+                            keyboardType="numeric"
+                            value={largo}
+                            onChangeText={text => setLargo(text)}
+                        />
+                        <Text style={styles.unitLabel}>m</Text>
+                    </View>
                 </View>
 
                 <View style={styles.campos}>
                     <Text style={styles.inputLabel}>Ancho: </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Ingresa Aquí"
-                        placeholderTextColor="#999"
-                        keyboardType="numeric"
-                        value={ancho}
-                        onChangeText={text => setAncho(text)}
-                    />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Ingresa Aquí"
+                            placeholderTextColor="#999"
+                            keyboardType="numeric"
+                            value={ancho}
+                            onChangeText={text => setAncho(text)}
+                        />
+                        <Text style={styles.unitLabel}>m</Text>
+                    </View>
                 </View>
 
                 <View style={styles.campos}>
                     <Text style={styles.inputLabel}>Espesor: </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Ingresa Aquí"
-                        placeholderTextColor="#999"
-                        keyboardType="numeric"
-                        value={espesor}
-                        onChangeText={text => setEspesor(text)}
-                    />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Ingresa Aquí"
+                            placeholderTextColor="#999"
+                            keyboardType="numeric"
+                            value={espesor}
+                            onChangeText={text => setEspesor(text)}
+                        />
+                        <Text style={styles.unitLabel}>m</Text>
+                    </View>
                 </View>
 
                 <View style={styles.resultContainer}>
@@ -169,12 +177,13 @@ const styles = StyleSheet.create({
     },
     titlesContainer: {
         alignItems: 'center',
+        justifyContent: 'center',
         marginBottom: 10,
     },
     subTitle: {
         fontSize: 26,
         fontWeight: '700',
-        marginVertical: 20,
+        marginVertical: 5,
         color: '#333',
     },
     campos: {
@@ -186,6 +195,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         color: '#333',
     },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
@@ -193,6 +206,13 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         backgroundColor: '#fff',
+        flex: 1,
+    },
+    unitLabel: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 5,
+        color: '#333',
     },
     resultContainer: {
         marginVertical: 20,
@@ -263,4 +283,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
