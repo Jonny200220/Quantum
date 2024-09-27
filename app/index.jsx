@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         backgroundColor: '#fff',
         flex: 1,
+
     },
     unitLabel: {
         fontSize: 16,
