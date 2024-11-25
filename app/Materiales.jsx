@@ -56,7 +56,7 @@ const Materiales = () => {
                 <Text style={styles.subtitle}>Resistencia seleccionada: {resistencia}</Text>
                 
                 <View style={styles.dosisContainer}>
-                    <Text style={styles.dosisTitle}>Dosificación en obra Total</Text>
+                    <Text style={styles.dosisTitle}>Dosificación para su elaboración, en revolvedora de 1 saco de capacidad</Text>
                 </View>
                 
                 <View style={styles.buttonRow}>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         color: '#333',
+        textAlign: 'center'
     },
     buttonRow: {
         flexDirection: 'row',

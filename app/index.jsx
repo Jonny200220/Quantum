@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable, Platform } from 'react-native';
+import { StyleSheet, 
+        Text, 
+        View, 
+        TextInput, 
+        Alert, 
+        ScrollView, 
+        Pressable, 
+        Platform } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
 import { StatusBar } from 'expo-status-bar';
@@ -29,7 +36,9 @@ const Dosificadora = () => {
             }
 
             setVolumen(calculatedVolume);
-            navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia: resistencia, resistenciaMensaje: resistenciaMensaje });
+            navigation.navigate('Materiales', { volumen: calculatedVolume, 
+                                                resistencia: resistencia, 
+                                                resistenciaMensaje: resistenciaMensaje });
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.');
         }
