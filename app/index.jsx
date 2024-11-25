@@ -1,26 +1,19 @@
-import { StyleSheet, 
-        Text, 
-        View, 
-        TextInput, 
-        Alert, 
-        ScrollView, 
-        Pressable, 
-        Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, ScrollView, Pressable, Platform } from 'react-native';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native'; 
+import { Link } from 'expo-router'; // Asegúrate de usar Link de Expo Router
 import { StatusBar } from 'expo-status-bar';
-import { Image } from 'expo-image'
-import { Link } from 'expo-router';
-import { Picker } from '@react-native-picker/picker'; 
+import { Image } from 'expo-image';
+import { Picker } from '@react-native-picker/picker';
 
 const Dosificadora = () => {
     const [largo, setLargo] = useState('');
     const [ancho, setAncho] = useState('');
     const [espesor, setEspesor] = useState('');
     const [volumen, setVolumen] = useState(0);
-    const [resistencia, setResistencia] = useState('');
+    // const [resistencia, setResistencia] = useState('');
+    const [resistencia, setResistencia] = useState('0'); // Valor inicial como string
+
     const [resistenciaMensaje, setResistenciaMensaje] = useState('');
-    const navigation = useNavigation();
 
     const handleCalculateVolume = () => {
         const largoValue = parseFloat(largo) || 0;
@@ -32,13 +25,10 @@ const Dosificadora = () => {
             calculatedVolume = parseFloat(calculatedVolume.toFixed(3));
 
             if (calculatedVolume >= 1000) {
-                calculatedVolume = parseFloat(calculatedVolume.toPrecision(6)); 
+                calculatedVolume = parseFloat(calculatedVolume.toPrecision(6));
             }
 
             setVolumen(calculatedVolume);
-            navigation.navigate('Materiales', { volumen: calculatedVolume, 
-                                                resistencia: resistencia, 
-                                                resistenciaMensaje: resistenciaMensaje });
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.');
         }
@@ -49,19 +39,19 @@ const Dosificadora = () => {
         let mensaje = '';
         switch (value) {
             case '100':
-                mensaje = "Plantillas";
+                mensaje = 'Plantillas';
                 break;
             case '150':
-                mensaje = "Pisos y Banquetas";
+                mensaje = 'Pisos y Banquetas';
                 break;
             case '200':
-                mensaje = "Dalas, Castillos y Cadenas";
+                mensaje = 'Dalas, Castillos y Cadenas';
                 break;
             case '250':
-                mensaje = "Zapatas, Losas y trabes";
+                mensaje = 'Zapatas, Losas y trabes';
                 break;
             case '300':
-                mensaje = "Preesforzados";
+                mensaje = 'Preesforzados';
                 break;
             default:
                 mensaje = '';
@@ -81,12 +71,12 @@ const Dosificadora = () => {
                     <Text style={styles.inputLabel}>Largo (metros): </Text>
                     <View style={styles.inputContainer}>
                         <TextInput
-                            style={styles.input}    
+                            style={styles.input}
                             placeholder="Ingresa Aquí"
                             placeholderTextColor="#999"
                             keyboardType="numeric"
                             value={largo}
-                            onChangeText={text => setLargo(text)}
+                            onChangeText={(text) => setLargo(text)}
                         />
                         <Text style={styles.unitLabel}>m</Text>
                     </View>
@@ -101,7 +91,7 @@ const Dosificadora = () => {
                             placeholderTextColor="#999"
                             keyboardType="numeric"
                             value={ancho}
-                            onChangeText={text => setAncho(text)}
+                            onChangeText={(text) => setAncho(text)}
                         />
                         <Text style={styles.unitLabel}>m</Text>
                     </View>
@@ -116,46 +106,64 @@ const Dosificadora = () => {
                             placeholderTextColor="#999"
                             keyboardType="numeric"
                             value={espesor}
-                            onChangeText={text => setEspesor(text)}
+                            onChangeText={(text) => setEspesor(text)}
                         />
                         <Text style={styles.unitLabel}>m</Text>
                     </View>
                 </View>
 
                 <View style={styles.resultContainer}>
-                    <View style={styles.resultRow}>
-                        <Text style={styles.resultLabel}>Volumen:</Text>
-                        <Text style={styles.resultValue}>{volumen} m³</Text>
-                    </View>
-                    <View style={styles.resultRow}>
-                        <Text style={styles.resultLabel}>Resistencia:</Text>
-                        <Text style={styles.resultValue}>{resistencia}</Text>
-                    </View>
-                    <View style={styles.resultRow}>
-                        <Text style={styles.resultLabel}>Uso Sugerido:</Text>
-                        <Text style={styles.resultValue}>{resistenciaMensaje}</Text>
-                    </View>
+                <View style={styles.resultRow}>
+                    <Text style={styles.resultLabel}>Volumen:</Text>
+                    <Text style={styles.resultValue}>{volumen} m³</Text>
+                </View>
+                <View style={styles.resultRow}>
+                    <Text style={styles.resultLabel}>Resistencia:</Text>
+                    <Text style={styles.resultValue}>{resistencia !== '0' ? resistencia : 'No seleccionada'}</Text>
+                </View>
+                <View style={styles.resultRow}>
+                    <Text style={styles.resultLabel}>Uso Sugerido:</Text>
+                    <Text style={styles.resultValue}>{resistenciaMensaje || 'N/A'}</Text>
+                </View>
                 </View>
 
+
                 <Text style={styles.pickerLabel}>Selecciona una Resistencia (f')</Text>
-                
-                <View style={{alignItems: 'center'}} >
-                <Picker selectedValue={resistencia}
+
+                <View style={styles.pickerContainer}>
+                    <Picker
+                        selectedValue={resistencia}
                         style={styles.picker}
-                        onValueChange={handleResistenciaChange}>
-                            
+                        onValueChange={(value) => {
+                        handleResistenciaChange(value); // Actualiza el estado
+                        }}
+                        mode="dialog" // 'dropdown' para Android, 'dialog' es otra opción
+                    >
                         <Picker.Item label="Selecciona una resistencia" value="0" />
                         <Picker.Item label="100" value="100" />
                         <Picker.Item label="150" value="150" />
                         <Picker.Item label="200" value="200" />
                         <Picker.Item label="250" value="250" />
                         <Picker.Item label="300" value="300" />
-                </Picker>
+                    </Picker>
                 </View>
-                
-                <Pressable style={({ pressed }) => [styles.btnCalcular, { backgroundColor: pressed ? '#4CAF50' : '#E55406' }]} onPress={handleCalculateVolume}>
-                    <Text style={{fontSize: 20, fontWeight: '600', color: '#fff',}}>Calcular</Text>
-                </Pressable>
+
+
+
+                <Link
+                    href={{
+                        pathname: '/Materiales',
+                        params: {
+                            volumen,
+                            resistencia,
+                            resistenciaMensaje,
+                        },
+                    }}
+                    style={[styles.btnCalcular, { backgroundColor: '#E55406', padding: 15, alignItems: 'center' }]}
+                    onPress={handleCalculateVolume}
+                >
+                    <Text style={{ fontSize: 20, fontWeight: '600', color: '#fff' }}>Calcular</Text>
+                </Link>
             </View>
             <StatusBar style="auto" />
 
@@ -165,9 +173,8 @@ const Dosificadora = () => {
                 </Link>
             </Pressable>
         </ScrollView>
-
     );
-}
+};
 
 export default Dosificadora;
 
@@ -243,6 +250,22 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: '500'
     },
+
+    pickerContainer: {
+        width: '90%',
+        alignSelf: 'center',
+        marginBottom: 20,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        overflow: 'hidden', // Asegura que el diseño sea limpio
+      },
+      
+      picker: {
+        width: '100%',
+        height: 50,
+      },
     pickerLabel: {
         fontSize: 20,
         textAlign: 'center',
@@ -250,25 +273,27 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#333',
     },
-    picker: {
-        ...Platform.select({
-          ios: {
-            fontSize: 24,
-            marginBottom: 5,
-            backgroundColor: '#fff',
-            borderRadius: 15,
-            width: '90%',
-            marginHorizontal: 20,
-          },
-          android: {
-            height: 50,
-            width: '75%',
-            backgroundColor: '#fff',
-            borderRadius: 10,
-            marginBottom: 20,
-          },
-        }),
-      },
+    // picker: {
+    //     ...Platform.select({
+    //       ios: {
+    //         fontSize: 24,
+    //         marginBottom: 5,
+    //         backgroundColor: '#fff',
+    //         borderRadius: 15,
+    //         width: '90%',
+    //         marginHorizontal: 20,
+    //       },
+    //       android: {
+    //         height: 50,
+    //         width: '75%',
+    //         backgroundColor: '#fff',
+    //         borderRadius: 10,
+    //         marginBottom: 20,
+    //       },
+    //     }),
+    //   },
+
+      
     btnCalcular: {
         alignItems: 'center',
         padding: 15,
