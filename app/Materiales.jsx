@@ -1,14 +1,10 @@
 import { StyleSheet, Text, View, ScrollView, Pressable, Linking, Platform } from 'react-native';
-import React from 'react';
-import { useRoute } from '@react-navigation/native';
+import { useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'expo-image';
 
 const Materiales = () => {
-    const route = useRoute(); 
-    const resistenciaMensaje = route.params?.resistenciaMensaje || '';
-    const resistencia = route.params?.resistencia || 0;
-    const volumen = route.params?.volumen || 0;
+    const { resistenciaMensaje = '', resistencia = 0, volumen = 0 } = useLocalSearchParams();
 
     const proporciones = {
         100: { cemento: 4.50, arena: 31.50, grava: 37.13, agua: 11.25 },
@@ -56,7 +52,7 @@ const Materiales = () => {
                 <Text style={styles.subtitle}>Resistencia(f'c) seleccionada: {resistencia}</Text>
                 
                 <View style={styles.dosisContainer}>
-                    <Text style={styles.dosisTitle}>Dosificación para la cantidad requerida, hecho en obra</Text>
+                    <Text style={styles.dosisTitle}>Dosificación para su elaboración, en revolvedora de 1 saco de capacidad</Text>
                 </View>
                 
                 <View style={styles.buttonRow}>
@@ -188,6 +184,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         color: '#333',
+        textAlign: 'center'
     },
     buttonRow: {
         flexDirection: 'row',
