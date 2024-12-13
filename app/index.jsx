@@ -119,7 +119,7 @@ const Dosificadora = () => {
                         <Text style={styles.resultValue}>{volumen} m³</Text>
                     </View>
                     <View style={styles.resultRow}>
-                        <Text style={styles.resultLabel}>Resistencia:</Text>
+                        <Text style={styles.resultLabel}>Resistencia(f'c):</Text>
                         <Text style={styles.resultValue}>{resistencia}</Text>
                     </View>
                     <View style={styles.resultRow}>
@@ -128,19 +128,19 @@ const Dosificadora = () => {
                     </View>
                 </View>
 
-                <Text style={styles.pickerLabel}>Selecciona una Resistencia (f')</Text>
+                <Text style={styles.pickerLabel}>Selecciona una Resistencia (f'c)</Text>
                 
                 <View style={{alignItems: 'center'}} >
                 <Picker selectedValue={resistencia}
                         style={styles.picker}
                         onValueChange={handleResistenciaChange}>
                             
-                        <Picker.Item label="Selecciona una resistencia" value="0" />
-                        <Picker.Item label="100" value="100" />
-                        <Picker.Item label="150" value="150" />
-                        <Picker.Item label="200" value="200" />
-                        <Picker.Item label="250" value="250" />
-                        <Picker.Item label="300" value="300" />
+                        <Picker.Item label="Selecciona una resistencia" value="0" color='#000'/>
+                        <Picker.Item label="100 kg/cm²" value="100" color='#000' />
+                        <Picker.Item label="150 kg/cm²" value="150" color='#000'/>
+                        <Picker.Item label="200 kg/cm²" value="200" color='#000'/>
+                        <Picker.Item label="250 kg/cm²" value="250" color='#000'/>
+                        <Picker.Item label="300 kg/cm²" value="300" color='#000'/>
                 </Picker>
                 </View>
                 
@@ -227,11 +227,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     resultLabel: {
-        fontSize: 18,
+        fontSize: 15,
         fontWeight: 'bold',
     },
     resultValue: {
-        fontSize: 17,
+        fontSize: 15,
         fontWeight: '500'
     },
     pickerLabel: {

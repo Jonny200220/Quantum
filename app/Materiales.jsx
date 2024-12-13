@@ -53,10 +53,10 @@ const Materiales = () => {
                 <Text style={styles.title}>Dosificación de concreto</Text>
                 <Text style={styles.subtitle}>Uso sugerido: {resistenciaMensaje}</Text> 
                 <Text style={styles.subtitle}>Volumen: {volumen} m³</Text>
-                <Text style={styles.subtitle}>Resistencia seleccionada: {resistencia}</Text>
+                <Text style={styles.subtitle}>Resistencia(f'c) seleccionada: {resistencia}</Text>
                 
                 <View style={styles.dosisContainer}>
-                    <Text style={styles.dosisTitle}>Dosificación en obra Total</Text>
+                    <Text style={styles.dosisTitle}>Dosificación para la cantidad requerida, hecho en obra</Text>
                 </View>
                 
                 <View style={styles.buttonRow}>
@@ -64,7 +64,7 @@ const Materiales = () => {
                         styles.button,
                         { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
                     ]}>
-                        <Text style={styles.buttonText}>Cemento (Bultos)</Text>
+                        <Text style={styles.buttonText}>Cemento (Bulto 50kg)</Text>
                         <Text style={styles.buttonValue}>{totalMateriales.cemento}</Text>
                     </Pressable>
                     <Pressable style={({ pressed }) => [
@@ -94,7 +94,7 @@ const Materiales = () => {
                 </View>
 
                 <View style={styles.dosisContainer}>
-                    <Text style={styles.dosisTitle}>Dosificación en obra para un bulto</Text>
+                    <Text style={styles.dosisTitle}>Dosificación para un bulto en revolvedora de 1 saco</Text>
                 </View>
 
                 <View style={styles.buttonRow}>
@@ -102,7 +102,7 @@ const Materiales = () => {
                         styles.button,
                         { backgroundColor: pressed ? '#4CAF50' : '#E55406' },
                     ]}>
-                        <Text style={styles.buttonText}>Cemento (Bultos)</Text>
+                        <Text style={styles.buttonText}>Cemento (Bultos 50kg)</Text>
                         <Text style={styles.buttonValue}>1</Text>
                     </Pressable>
                     <Pressable style={({ pressed }) => [
