@@ -19,22 +19,18 @@ const Dosificadora = () => {
         const largoValue = parseFloat(largo) || 0;
         const anchoValue = parseFloat(ancho) || 0;
         const espesorValue = parseFloat(espesor) || 0;
-
         if (largoValue > 0 && anchoValue > 0 && espesorValue > 0) {
             let calculatedVolume = largoValue * anchoValue * espesorValue;
             calculatedVolume = parseFloat(calculatedVolume.toFixed(3));
-
             if (calculatedVolume >= 1000) {
                 calculatedVolume = parseFloat(calculatedVolume.toPrecision(6)); 
             }
-
             setVolumen(calculatedVolume);
             navigation.navigate('Materiales', { volumen: calculatedVolume, resistencia: resistencia, resistenciaMensaje: resistenciaMensaje });
         } else {
             Alert.alert('Error', 'Valores de entrada inválidos.');
         }
     };
-
     const handleResistenciaChange = (value) => {
         setResistencia(value);
         let mensaje = '';
@@ -59,7 +55,6 @@ const Dosificadora = () => {
         }
         setResistenciaMensaje(mensaje);
     };
-
     return (
         <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
